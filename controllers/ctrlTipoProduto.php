@@ -12,30 +12,31 @@ if (isset($_GET["func"])) {
         case "retornaTiposProduto":
             echo json_encode(retornaTiposProduto());
             break;
-            case "cadastrarTipoProduto":
-                $objTipoProduto = carregarTipoProduto($tipoproduto);
-                if (cadastrarTipoProduto($objTipoProduto)) {
-                    $retorno = array(
-                        $tipo = "success",
-                        $tituloRetorno = "Tipo de produto cadastrado com sucesso!",
-                        $timer = 3000,
-                    );
-                } else {
-                    $retorno = array(
-                        $tipo = "error",
-                        $tituloRetorno = "Ocorreu um erro ao inserir!",
-                        $timer = 10000,
-                        $descricaoRetorno = "Verifique os dados informados e se estiver tudo correto, entre em contato com o suporte!!"
-                    );
-                }
-                echo json_encode($retorno);
-                break;
+        case "cadastrarTipoProduto":
+            $objTipoProduto = carregarTipoProduto($tipoproduto);
+            if (cadastrarTipoProduto($objTipoProduto)) {
+                $retorno = array(
+                    $tipo = "success",
+                    $tituloRetorno = "Tipo de produto cadastrado com sucesso!",
+                    $timer = 3000,
+                );
+            } else {
+                $retorno = array(
+                    $tipo = "error",
+                    $tituloRetorno = "Ocorreu um erro ao inserir!",
+                    $timer = 10000,
+                    $descricaoRetorno = "Verifique os dados informados e se estiver tudo correto, entre em contato com o suporte!!"
+                );
+            }
+            echo json_encode($retorno);
+            break;
         default:
             break;
     }
 }
 
-function retornaTiposProduto(){
+function retornaTiposProduto()
+{
     $daoTipoProduto = new DAOTipoProduto();
     return $daoTipoProduto->retornaTiposProduto();
 }

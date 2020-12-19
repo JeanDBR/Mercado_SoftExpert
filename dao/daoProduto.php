@@ -23,4 +23,24 @@ class DAOProduto
         $stmt->bindParam(':usu_id', $objProduto->Usu_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function retornaProdutos()
+    {
+        $retorno = [];
+        $conn = new Conexao();
+        $objProduto = new Produto();
+        $conn = $conn->AbrirConexao();
+        $stmt = $conn->prepare("SELECT 
+                                    prod.*, 
+                                    tipprod.tipprod_juros
+                                FROM tb_produto prod
+                                JOIN tb_tipoproduto tipprod on tipprod.tipprod_id = prod.tipprod_id");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_CLASS);
+        foreach ($result as $item) {
+            $objProduto = $item;
+            array_push($retorno, $objProduto);
+        }
+        return $retorno;
+    }
 }

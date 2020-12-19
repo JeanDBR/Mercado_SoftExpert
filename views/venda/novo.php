@@ -14,46 +14,23 @@ include("../../index.php");
 
 <body>
     <div class="container pt-3">
-        <form class="row g-3 needs-validation" id="formVenda" novalidate>
-            <div class="row col-12">
-                <div class="col-6">
-                    <label for="txtDescProduto" class="form-label">Produto</label>
-                    <select class="form-control" id="selectProduto"></select>
-                </div>
-                <div class="col-3">
-                    <label for="txtVlrCustoProduto" class="form-label">Valor Custo <small><strong>*</strong></small></label>
-                    <input type="text" class="form-control maskmoney" id="txtVlrCustoProduto" placeholder="Ex: R$ 1,23" required>
-                    <div class="invalid-feedback">
-                        Por favor, preencha este campo corretamente!
-                    </div>
-                </div>
-                <div class="col-3">
-                    <label for="txtVlrVendaProduto" class="form-label">Valor Venda <small><strong>*</strong></small></label>
-                    <input type="text" class="form-control maskmoney" id="txtVlrVendaProduto" placeholder="Ex: R$ 4,56" required>
-                    <div class="invalid-feedback">
-                        Por favor, preencha este campo corretamente!
-                    </div>
-                </div>
+        <div class="row col-12">
+            <div class="col-6">
+                <label for="txtDescProduto" class="form-label">Produto</label>
+                <select class="form-control" id="selectProduto"></select>
             </div>
-            <div class="row col-12 pt-2">
-                <div class="col-3">
-                    <label for="selectTipoProduto" class="form-label">Tipo do Produto <small><strong>*</strong></small></label>
-                    <select class="form-control" id="selectTipoProduto" required>
-                    </select>
-                    <div class="invalid-feedback">
-                        Por favor, escolha uma opção!
-                    </div>
-                </div>
-                <div class="col-3">
-                    <label class="form-label">% Juros</label>
-                    <input type="text" class="form-control" id="txtPercJuros" placeholder="Ex: 2,34%" readonly />
-                </div>
+            <div class="col-1">
+                <label for="txtQtdProduto" class="form-label">Qtd</label>
+                <input type="number" class="form-control" id="txtQtdProduto" min="1" value="1" required>
             </div>
-            <div class="col-12 pt-2">
-                <button class="btn btn-secondary" type="reset">Limpar</button>
-                <button class="btn btn-primary float-right" type="submit">Salvar</button>
+            <div class="col-3 align-self-end">
+                <button class="btn btn-primary btn-block">Adicionar</button>
             </div>
-        </form>
+        </div>
+        <div class="col-12 pt-2">
+            <button class="btn btn-secondary" type="reset">Limpar</button>
+            <button class="btn btn-success float-right" type="submit">Finalizar</button>
+        </div>
     </div>
 </body>
 <script src="/js/script.js"></script>
@@ -72,12 +49,11 @@ include("../../index.php");
             method: 'GET',
             dataType: "json",
             success: function(data) {
-                _listaProdutos = data;
                 let htmlOption;
                 $("#selectProduto").html('');
                 htmlOption = `<option value="" disabled selected>Escolha um produto</option>`;
-                _listaProdutos.forEach(produto => {
-                    htmlOption += `<option value="${produto.prod_id}">${produto.prod_descricao}</option>`;
+                data.forEach(produto => {
+                    htmlOption += `<option value="${produto.prod_id}" data-vlrVenda="${produto.prod_valorvenda}" data-juros="${produto.tipprod_juros}">${produto.prod_descricao}</option>`;
                 });
                 $("#selectProduto").html(htmlOption);
             },

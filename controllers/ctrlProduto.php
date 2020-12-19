@@ -9,6 +9,9 @@ if (isset($_GET["func"])) {
     $produto = isset($_POST["produto"]) ? json_decode($_POST["produto"]) : null;
 
     switch ($funcao) {
+        case "retornaProdutos":
+            echo json_encode(retornaProdutos());
+            break;
         case "cadastrarProduto":
             $objProduto = carregarProduto($produto);
             if (cadastrarProduto($objProduto)) {
@@ -47,4 +50,9 @@ function carregarProduto($produto)
     $prod->setTipProd_id($produto->tipprod_id);
     $prod->setUsu_id($produto->usu_id);
     return $prod;
+}
+
+function retornaProdutos(){
+    $daoProduto = new DAOProduto();
+    return $daoProduto->retornaProdutos();
 }
