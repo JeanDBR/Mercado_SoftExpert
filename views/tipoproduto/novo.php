@@ -42,9 +42,11 @@ include("../../index.php"); //Menu
                     </div>
                 </div>
             </div>
-            <div class="col-12 pt-2">
-                <button class="btn btn-secondary" type="reset">Limpar</button>
-                <button class="btn btn-primary float-right" type="submit">Salvar</button>
+            <div class="row col-12 pt-3">
+                <div class="col-12">
+                    <button class="btn btn-secondary" type="reset">Limpar</button>
+                    <button class="btn btn-primary float-right" type="submit">Salvar</button>
+                </div>
             </div>
         </form>
     </div>
